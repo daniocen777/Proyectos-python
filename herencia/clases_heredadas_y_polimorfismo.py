@@ -41,8 +41,7 @@ class Alimento(Producto):
         """.format(self.referecia, self.nombre, self.precio, self.descripcion, self.productor, self.distribuidor)
 
 
-a = Alimento(2990, 'Pan', 34.22, 'Pan al pan', 'Panadería', 'Panadero')
-''' print(a) '''
+alimento = Alimento(2990, 'Pan', 34.22, 'Pan al pan', 'Panadería', 'Panadero')
 
 
 class Libro(Producto):
@@ -62,6 +61,32 @@ class Libro(Producto):
         """.format(self.referecia, self.nombre, self.precio, self.descripcion, self.sbn, self.autor)
 
 
-l = Libro(2990, '2666', 89.22, 'Obra latinoamericana',
-          '34444333', 'Pedro Páramo')
-''' print(l) '''
+libro = Libro(2990, '2666', 89.22, 'Obra latinoamericana',
+              '34444333', 'Pedro Páramo')
+
+productos = [adorno, alimento]
+productos.append(libro)
+''' print(productos) '''
+
+''' for p in productos:
+    print(p, '\n') '''
+
+''' for p in productos:
+    # Si un producto es instncia de una Clase => return true
+    if (isinstance(p, Adorno)):
+        print(p.referecia, '|', p.nombre)
+    elif(isinstance(p, Alimento)):
+        print(p.referecia, '|', p.nombre, '|', p.productor, '|', p.distribuidor)
+    elif(isinstance(p, Libro)):
+        print(p.referecia, '|', p.nombre, '|', p.autor, '|', p.sbn)
+    else:
+        print('No hay') '''
+
+
+def rebajar_producto(p, rebaja):
+    ''' Devuelve un producto con una rebaja en % de su precio '''
+    p.precio = p.precio - (p.precio/100 * rebaja)
+    return p
+
+alimento_rebajado = rebajar_producto(alimento, 10)
+print(alimento_rebajado)
