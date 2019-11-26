@@ -1,0 +1,3 @@
+Una línea con texto 
+Esta línea se ha modificado en memoria
+ Tercera línea del fichero
