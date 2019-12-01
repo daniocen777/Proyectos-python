@@ -4,6 +4,7 @@ import urllib.request as request
 from urllib.request import urlopen
 import os  # Sistema operativo
 from bs4 import BeautifulSoup
+import re  # Expresiones regulares
 
 # ******************* Verificar https #******************* #
 print(" ************AUDITORÍA A 'python.org' ************")
@@ -54,3 +55,39 @@ soup = BeautifulSoup(html.read())
 print("El título dice: {}".format(soup.html.head.title.string))
 print("El tamaño del título es: {}".format(len(soup.html.head.title.string)))
 html.close()
+
+# ******************* Palabras clave #******************* #
+site = request.urlopen("http://python.org/")
+soup = BeautifulSoup(site)  # Te da el html
+keywords = soup.find("meta", attrs={"name": "keywords"})
+print("Python keywords:", keywords.get('content'))  # cadena
+words = keywords.get("content").split()
+print(words)  # ['Python', 'programming', 'language',...]
+# Cantidad de veces que se repite la palbra clave => con re (regular expresion)
+for word in words:
+    print(word, len(soup.findAll(text=re.compile(word))))
+
+# Resultado:
+""" Python 59
+programming 4
+language 5
+object 0
+oriented 0
+web 3
+free 0
+open 0
+source 1
+software 0
+license 0
+documentation 0
+download 1
+community 2 """
+
+# ******************* Alt en imágenes #******************* #
+site = request.urlopen("http://python.org/")
+soup = BeautifulSoup(site)  # Te da el html
+count = 1
+for image in soup.findAll("img"):
+    print("Imagen #{}: {}".format(count, image["src"]))
+    print("Alt de imagen #{}: {}".format(count, image.get("alt", "None")))
+    count += 1
